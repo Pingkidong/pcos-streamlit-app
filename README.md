@@ -97,7 +97,7 @@ Recall and confusion matrix are required for evaluation.
 ![Outliner Preview](image/outliner.png)
 
 Boxplots revealed outliers across multiple features.  
-However, these outliers are **important medical indicators** rather than noise, therefore no outlier removal was performed.
+However, these outliers are not noise, but important medical indicators related to PCOS (e.g., high testosterone or high AFC). Therefore, no outliers were removed, as doing so would result in loss of valuable information.
 
 ---
 
@@ -115,14 +115,24 @@ Correlation heatmap results:
 | BMI | 0.29 |
 | Age | -0.24 |
 
-Strong correlations align with medical literature indicating that hormonal imbalance and ovulatory dysfunction are key indicators of PCOS.
+**Insights:**
+
+Antral Follicle Count, Menstrual Irregularity, and Testosterone Level show strong correlations with PCOS diagnosis. These findings align with medical literature stating that ovulatory dysfunction and hormonal imbalance are key indicators of PCOS
+
+⚠ **BMI (0.29)**
+- Weak to moderate correlation
+- Still informative but not a primary factor
+
+⚠ **Age (-0.24)**
+- Weak negative correlation
+- PCOS tends to be diagnosed at younger ages
+- Still retained as a feature
 
 ---
 
 ## ✂️ 3. Stratified Train-Test Split
 
-A stratified split was applied to preserve the original class distribution of PCOS and Non-PCOS cases.  
-This step is crucial due to dataset imbalance to prevent biased evaluation.
+The dataset was split into training and testing sets using stratified splitting to preserve the original class distribution of PCOS and Non-PCOS cases. This step is crucial due to the imbalanced nature of the dataset, as non-stratified splitting could result in biased evaluation.
 
 ---
 
@@ -152,11 +162,14 @@ This increases the importance of PCOS cases during training.
 [[478 2]
 [ 0 120]]
 
+TN = 478 (correctly predicted Non-PCOS)
 
-- TN = 478
-- FP = 2
-- FN = 0
-- TP = 120
+FP = 2 (Non-PCOS predicted as PCOS)
+
+FN = 0 (PCOS predicted as Non-PCOS)
+
+TP = 120 (correctly predicted PCOS)
+
 
 ### Classification Report Highlights
 - **Recall (PCOS): 1.00**
@@ -170,9 +183,11 @@ Despite excellent results, potential overfitting or high dataset informativeness
 
 ## 🔁 7. Cross-Validation
 
-To verify model robustness, 5-fold cross-validation was performed using recall as the scoring metric.
+To validate this suspicion, 5-fold cross-validation was performed using recall as the scoring metric. Only the training data was used to ensure unbiased evaluation. Training data split into **5 folds**:
+- 4 folds used for training
+- 1 fold used for validation
 
-Only training data was used.
+Scoring metric: recall (to prioritize PCOS detection)
 
 | Fold | Recall |
 |------|--------|
@@ -184,8 +199,7 @@ Only training data was used.
 
 **Average Recall:** **99.79%**
 
-This confirms strong generalization capability and consistent performance.
-
+This result indicates that the model has excellent generalization ability and is highly effective in detecting PCOS cases.
 ---
 
 ## 🌐 Deployment
