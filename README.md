@@ -44,6 +44,8 @@ Histogram plots were used to analyze feature distributions in order to:
 
 ### Feature Distribution Insights
 
+![Distribution Preview](image/distribusi.png)
+
 #### 1. Age
 - Range approximately 18–44 years
 - Relatively uniform distribution
@@ -92,12 +94,16 @@ Recall and confusion matrix are required for evaluation.
 
 ## 📌 Outlier Analysis
 
+![Outliner Preview](image/outliner.png)
+
 Boxplots revealed outliers across multiple features.  
 However, these outliers are **important medical indicators** rather than noise, therefore no outlier removal was performed.
 
 ---
 
 ## 🔗 Correlation Analysis
+
+![Correlation Preview](image/corr.png)
 
 Correlation heatmap results:
 
